@@ -5,7 +5,7 @@ module.exports = {
     timeoutMilliseconds = timeoutMilliseconds || 5000;
     for(var i in app.stack) {
       var middleware = app.stack[i];
-      if(app.router === middleware.handle || middleware.handle.name == 'errorHandler') continue;
+      if(app.router === middleware.handle || middleware.handle.length > 3 /* error handler */) continue;
       middleware._handle = middleware.handle;
       middleware.handle = timeoutFn(middleware.handle, timeoutMilliseconds);
     }
