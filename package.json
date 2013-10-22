@@ -1,7 +1,7 @@
 {
   "name": "debug-middleware",
   "description": "Cause express middleware to time out and report failures.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "dependencies": {
   },

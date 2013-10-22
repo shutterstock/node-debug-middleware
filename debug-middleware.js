@@ -10,8 +10,9 @@ module.exports = {
       middleware.handle = timeoutFn(middleware.handle, timeoutMilliseconds);
     }
 
-    for(var method in app.routes.routes){
-      var routes = app.routes.routes[method];
+    var app_routes = app.routes.routes || app.routes;
+    for(var method in app_routes){
+      var routes = app_routes[method];
       routes.forEach(function(route){
         for(var i = 0; i < route.callbacks.length; i++){ 
           var middleware = route.callbacks[i];
