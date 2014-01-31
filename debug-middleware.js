@@ -1,5 +1,3 @@
-var express = require('express');
-
 exports.debug = function(app, timeoutMilliseconds){
   timeoutMilliseconds = timeoutMilliseconds || 5000;
   for(var i in app.stack) {
@@ -36,8 +34,7 @@ var timeoutFn = function(middleware, timeoutMilliseconds){
     var timeoutId = setTimeout(function(){
       if(!res.finished){
         var error = new Error("A route middleware took too long to execute: " + req.url + " " + (middleware.name ? ('function name: "' + middleware.name + '"') : '') + " " + middleware.toString());
-        var errorHandler = express.errorHandler({ dumpExceptions: true });
-        errorHandler(error, req, res);
+        console.log(error);
       }
     }, timeoutMilliseconds);
 
