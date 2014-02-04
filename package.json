@@ -22,7 +22,7 @@
     "node": ">= 0.4"
   },
   "scripts": {
-    "test": "mocha --recursive tests",
-    "testwatch": "nodemon -w . -x ./node_modules/.bin/mocha -R list --recursive tests"
+    "test": "mocha -R list --recursive --check-leaks tests",
+    "testwatch": "nodemon -w . -x ./node_modules/.bin/mocha -R list --check-leaks --recursive tests"
   }
 }

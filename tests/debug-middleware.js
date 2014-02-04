@@ -10,7 +10,7 @@ chai.use(require('sinon-chai'));
 var subject = require('../debug-middleware');
 
 describe("debug-middleware", function() {
-  var app, canary;
+  var app, canary, shimSpy, fakeShim;
 
   beforeEach(function() {
     app = express();
