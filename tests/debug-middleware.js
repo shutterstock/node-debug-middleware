@@ -270,8 +270,6 @@ describe("debug-middleware", function() {
 
       subject.callLogger(fakeMiddleware, fakeReq, fakeRes);
 
-      var expectedString = 'waffle';
-
       expect(console.log).to.have.been.called;
 
       var logString = console.log.lastCall.args[0];
