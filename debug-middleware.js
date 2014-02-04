@@ -1,41 +1,35 @@
-exports.debug = function(app, timeoutMilliseconds){
-  timeoutMilliseconds = timeoutMilliseconds || 5000;
-  for(var i in app.stack) {
-    var middleware = app.stack[i];
-    if(app.router === middleware.handle || middleware.handle.length > 3 /* error handler */) continue;
-    middleware._handle = middleware.handle;
-    middleware.handle = timeoutFn(middleware.handle, timeoutMilliseconds);
-  }
+exports.debug = function(app, msTimeout){
+  msTimeout = msTimeout || 5000;
+  exports.shimRoutes(app, msTimeout);
+  exports.shimMiddleware(app, msTimeout);
+};
 
+exports.shimRoutes = function(app, timeoutMilliseconds) {
   var app_routes = app.routes.routes || app.routes;
   for(var method in app_routes){
     var routes = app_routes[method];
     routes.forEach(function(route){
       for(var i = 0; i < route.callbacks.length; i++){
         var middleware = route.callbacks[i];
-        route.callbacks[i] = timeoutFn(middleware, timeoutMilliseconds);
+        route.callbacks[i] = exports.timeoutFn(middleware, timeoutMilliseconds);
       }
     });
   }
 };
 
+exports.shimMiddleware = function(app, timeoutMilliseconds) {
+  for(var i in app.stack) {
+    var middleware = app.stack[i];
+    if(app.router === middleware.handle) continue;
+    if(middleware.handle.length != 3) continue;
+    middleware.handle = exports.timeoutFn(middleware.handle, timeoutMilliseconds);
+  }
+};
 
-var timeoutFn = function(middleware, timeoutMilliseconds){
-  return function(req, res, next){
-
-    var err;
-    if(arguments.length == 4){
-      err = arguments[0];
-      req = arguments[1];
-      res = arguments[2];
-      next = arguments[3];
-    }
-
-    var timeoutId = setTimeout(function(){
-      if(!res.finished){
-        var error = new Error("A route middleware took too long to execute: " + req.url + " " + (middleware.name ? ('function name: "' + middleware.name + '"') : '') + " " + middleware.toString());
-        console.log(error);
-      }
+exports.timeoutFn = function(middleware, timeoutMilliseconds){
+  return function(req, res, next) {
+    var timeoutId = setTimeout(function() {
+      exports.callLogger(middleware, req, res);
     }, timeoutMilliseconds);
 
     var nextFn = function(err){
@@ -43,8 +37,17 @@ var timeoutFn = function(middleware, timeoutMilliseconds){
       next(err);
     };
 
-    if(middleware.length == 4) middleware(err, req, res, nextFn);
-    else middleware(req, res, nextFn);
-  };
+    middleware(req, res, nextFn);
+  }
 };
 
+exports.callLogger = function(middleware, req, res) {
+  var logString = [
+    "A route middleware took too long to execute: ",
+    req.headers.host,
+    req.url,
+    middleware.toString()
+  ].join('');
+
+  console.log(logString)
+};
