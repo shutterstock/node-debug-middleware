@@ -49,5 +49,5 @@ exports.callLogger = function(middleware, req, res) {
     middleware.toString()
   ].join('');
 
-  console.log(logString)
+  console.warn(logString);
 };

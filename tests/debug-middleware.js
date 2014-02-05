@@ -254,7 +254,7 @@ describe("debug-middleware", function() {
 
   describe(".callLogger", function() {
     it("logs information", function() {
-      this.sinon.spy(console, 'log');
+      this.sinon.spy(console, 'warn');
 
       function fakeMiddleware(req, res, next) {
         next();
@@ -270,9 +270,9 @@ describe("debug-middleware", function() {
 
       subject.callLogger(fakeMiddleware, fakeReq, fakeRes);
 
-      expect(console.log).to.have.been.called;
+      expect(console.warn).to.have.been.called;
 
-      var logString = console.log.lastCall.args[0];
+      var logString = console.warn.lastCall.args[0];
 
       expect(logString).to.match(/took too long/);
       expect(logString).to.match(/example\.com\/some\/path\?this=that/);
