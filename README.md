@@ -1,5 +1,7 @@
 # node-debug-middleware
 
+[![Build Status](https://travis-ci.org/shutterstock/node-debug-middleware.png?branch=master)](https://travis-ci.org/shutterstock/node-debug-middleware)
+
 ```shell
 npm install debug-middleware
 ```
