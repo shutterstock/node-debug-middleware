@@ -43,11 +43,11 @@ exports.timeoutFn = function(middleware, timeoutMilliseconds){
 
 exports.callLogger = function(middleware, req, res) {
   var logString = [
-    "A route middleware took too long to execute: ",
-    req.headers.host,
-    req.url,
-    middleware.toString()
-  ].join('');
+    "A route middleware took too long to execute:",
+    req.method,
+    req.headers.host + req.url,
+    middleware.toString().split(/\n/).join('\\n') // avoid interleaved log lines
+  ].join(' ');
 
   console.warn(logString);
 };

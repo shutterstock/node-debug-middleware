@@ -261,6 +261,7 @@ describe("debug-middleware", function() {
       }
 
       var fakeReq = {
+        method: 'GET',
         url: '/some/path?this=that',
         headers: {
           host: 'example.com'
@@ -275,8 +276,8 @@ describe("debug-middleware", function() {
       var logString = console.warn.lastCall.args[0];
 
       expect(logString).to.match(/took too long/);
-      expect(logString).to.match(/example\.com\/some\/path\?this=that/);
-      expect(logString).to.match(/fakeMiddleware/);
+      expect(logString).to.match(/GET example\.com\/some\/path\?this=that/);
+      expect(logString).to.match(/function fakeMiddleware/);
     });
   });
 });
