@@ -10,13 +10,17 @@ chai.use(require('sinon-chai'));
 var subject = require('../debug-middleware');
 
 describe("debug-middleware", function() {
-  var app, canary, shimSpy, fakeShim;
+  var app;
+
+  beforeEach(function() {
+    app = express();
+    app.disable('x-powered-by');
+  });
 
   describe("unit tests", function() {
-    beforeEach(function() {
-      app = express();
-      app.disable('x-powered-by');
+    var canary, shimSpy, fakeShim;
 
+    beforeEach(function() {
       canary = function() {
         throw new Error("This should not be called");
       };
@@ -349,7 +353,7 @@ describe("debug-middleware", function() {
           setTimeout(function() {
             routeWork();
             res.send('ok');
-          },50);
+          },20);
         });
 
         var waitMs = 10;
@@ -368,7 +372,7 @@ describe("debug-middleware", function() {
               expect(console.warn).to.have.been.called;
 
               done();
-            }, waitMs*2);
+            }, waitMs*4);
           });
       });
     });
