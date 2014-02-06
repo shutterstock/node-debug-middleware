@@ -3,6 +3,10 @@
   "description": "Cause express middleware to time out and report failures.",
   "version": "1.0.0",
   "private": false,
+  "maintainers": [
+    {"name": "Elliot Foster", "email": "efoster@shutterstock.com"},
+    {"name": "Ilya Shaisultanov", "email": "ishaisultanov@shutterstock.com"}
+  ],
   "dependencies": {},
   "peerDependencies": {
     "express": ">= 2"
