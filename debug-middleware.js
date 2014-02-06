@@ -29,7 +29,7 @@ exports.shimMiddleware = function(app, timeoutMilliseconds) {
 exports.timeoutFn = function(middleware, timeoutMilliseconds){
   return function(req, res, next) {
     var timeoutId = setTimeout(function() {
-      exports.callLogger(middleware, req, res);
+      if (!res.finished) exports.callLogger(middleware, req, res);
     }, timeoutMilliseconds);
 
     var nextFn = function(err){
