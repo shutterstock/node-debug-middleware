@@ -54,3 +54,7 @@ Example output:
 ```
 A route middleware took too long to execute:  example.com/some/path?this=that function slowMiddleware(req, res, next) {\n  setTimeout(function() {\n    next();\n  }, 6000);\n}
 ```
+
+## License
+
+[MIT](LICENSE) © 2017 Shutterstock Images, LLC
