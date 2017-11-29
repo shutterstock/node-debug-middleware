@@ -35,5 +35,17 @@
     "test": "mocha -R list --recursive --check-leaks tests",
     "testwatch": "nodemon -w . -x ./node_modules/.bin/mocha -R list --check-leaks --recursive tests"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": ["debug", "middleware"],
+  "homepage": "https://github.com/shutterstock/node-debug-middleware",
+  "bugs": "https://github.com/shutterstock/node-debug-middleware/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shutterstock/node-debug-middleware.git"
+  },
+  "contributors": [
+    "Elliot Foster <efoster@shutterstock.com>",
+    "David Fenster <dfenster@shutterstock.com>",
+    "Richard Littauer <richard.littauer@gmail.com>"
+  ]
 }
