@@ -23,7 +23,7 @@
     "mocha-sinon": "~1.1",
     "sinon": "~1.7",
     "nodemon": "~1.0.14",
-    "express": "~3.4.8",
+    "express": "~4.17.1",
     "supertest": "~0.9.0",
     "sinon-chai": "~2.5.0"
   },
